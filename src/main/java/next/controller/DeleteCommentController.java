@@ -10,29 +10,15 @@ import core.mvc.AbstractController;
 import core.mvc.ModelAndView;
 import core.utils.ServletRequestUtils;
 import next.dao.AnswerDao;
-import next.dao.QuestionDao;
 import next.model.Answer;
 
-public class AddAnswerController extends AbstractController {
+public class DeleteCommentController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
-	
-	private Answer answer;
 	private AnswerDao answerdao = new AnswerDao();
-	private QuestionDao questiondao = new QuestionDao();
-	
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String writer;
-		String contents;
-		long questionId;
-		
-		writer = ServletRequestUtils.getStringParameter(request, "writer");
-		contents = ServletRequestUtils.getStringParameter(request, "contents");
-		questionId = ServletRequestUtils.getLongParameter(request, "questionId");
-		answer = new Answer(writer, contents, questionId);
-		answerdao.insert(answer);
-		questiondao.addCountOfComment(questionId);
-		logger.debug(answer.toString());
+		long answerId= ServletRequestUtils.getRequiredLongParameter(request, "answerId");
+		answerdao.delete(answerId);
 		response.setStatus(HttpServletResponse.SC_OK);
 		ModelAndView mav = jsonView();
 		return mav;

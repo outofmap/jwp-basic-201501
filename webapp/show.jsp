@@ -58,6 +58,8 @@
 			<h3>댓글 수 : ${question.countOfComment}</h3>
 			<c:forEach items="${answers}" var="answer">
 				<div class="comment">
+				<input type="hidden" name="answerId"
+					value="${answer.answerId}">
 					<div class="comment-metadata">
 						<span class="comment-author">${answer.writer}</span> <span
 							class="comment-date">${answer.createdDate}</span>
@@ -66,7 +68,7 @@
 						<div class="about">내용 :</div>
 						${answer.contents}
 					</div>
-					<div>
+					<div class="comment-delete" "an">
 						<a href="#">삭제</a>
 					</div>
 				</div>
@@ -75,6 +77,7 @@
 		<!-- comments end -->
 
 	</div>
+	
 	<%@ include file="/include/footer.jspf"%>
 </body>
 </html>
