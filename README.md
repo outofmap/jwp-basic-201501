@@ -40,10 +40,10 @@ controller를 Listcontroller 객체가 생성해 초기화한다.
 - 요청한 자원을 client에 보내기까지 ModelAndView를 만들고 다시 View를 가져오는 과정이 길게 느껴지는데 이렇게 하는 이유가 무엇일까?
 
 #### 8. ListController와 ShowController가 멀티 쓰레드 상황에서 문제가 발생하는 이유에 대해 설명하라.
-* OS시간에 쓰레드라는 개념을 배웠는데, JAVA에서의 쓰레드와 같은 것인지 모르겠다. 
-
+- 추측 : Listcontroller와 showcontroller가 공유하는 부분에서 문제가 발생할 수 있다.(?)
 --------------------------------
-#### dispatcherServlet 은 뭔가요?
+## 과제 수행 중 질문. 느낀점    
+### dispatcherServlet 은 뭔가요?
 
 [dispatcherServlet](http://egloos.zum.com/springmvc/v/504151)        
 
@@ -54,15 +54,14 @@ controller를 Listcontroller 객체가 생성해 초기화한다.
 * 추측1 : 스프링에서 사용하는 전략의 일까?(MVC를 쉽게 구현하도록 도와주는 역할?)
 이 프로젝트에서 spring이라는 단어도 찾아볼 수 없으므로 dispatcher는 스프링에서 사용하는 서블릿이 아니다. 그렇지만 MVC 구현하도록 도와주는 역할을 하고 있다는 것은 느낄 수 있었다. 
 [프론트 컨트롤러?](http://kimddochi.tistory.com/85)
-'프론트컨트롤러(=Front Controller)이다. 자바 서버의 Servlet 컨테이너에서 HTTP 프로토콜을 통해 들어오는 
-모든 요청을 프리젠테이션 계층의 제일앞에 둬서 중앙집중식으로 처리할 수 있는 컨트롤러이다.'
+'프론트 컨트롤러(=Front Controller)이다. 자바 서버의 Servlet 컨테이너에서 HTTP 프로토콜을 통해 들어오는 모든 요청을 프리젠테이션 계층의 제일앞에 둬서 중앙집중식으로 처리할 수 있는 컨트롤러이다.'
 이 말은 이해가 된다.
 'DispatcherServlet은 서블릿 컨테이너가 생성하고 관리하는 오브젝트이다.
 즉, 스프링이 관여하는 오브젝트가 아니므로 직접 DI를 해줄 방법이 없다. 대신 web.xml에서 설정한 웹어플리케이션 컨텍스를 참고하여 필요한 전략을 DI하여 사용할 수 있다.'
 이 말은 이해가 안된다.
 
 #### 4. 한글 인코딩
-[한글인코딩 참조](http://maxim365.tistory.com/?page=162#recentTrackback) tomcat7부터는 web.xml 매핑없이 annotation만으로 처리 가능! ( 한글 인코딩 문제가 명확해졌다.)
+[한글인코딩 참조](http://maxim365.tistory.com/?page=162#recentTrackback) tomcat7부터는 web.xml 매핑없이 annotation만으로 처리 가능! (한글 인코딩 문제가 명확해졌다.)
 
 #### 5. JSTL 
 jstl 반복문 함수에서는 items 는 서블릿에서 만들어둔 객체와 매핑되는 것을 명확히 알게되었다. 
@@ -73,9 +72,9 @@ params가 하나의 긴 string이라고 생각해서 따로 parse해야 하는�
 getparameter메소드를 봐도 string을 자르는 코드는 없었는데 어떻게 가능한 것인지 궁금하다. 
 
 
-#### 8. jsonView 클래스에서 render()메소드의 mapper.writeValueAsString(model)가 어떻게 일하는 것인지 모르겠다. 
+#### 7. jsonView 클래스에서 render()메소드의 mapper.writeValueAsString(model)가 어떻게 일하는 것인지 모르겠다. 
 
-#### 9. api를 추가하는 것과 다른 문제에서 기능을 구현하거나 추가하는 것과 의미가 다른 것인지 모르겠다. 
+#### 9. api와 모바일로 서비스하는 것은 무슨 상관관계가 있을까?
 
 #### 10. 서블릿마다 QuestionDao와 AnswerDao를 생성하면 성능면에서 어떻게 문제가 되는지 궁금하다.
 

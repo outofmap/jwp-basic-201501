@@ -58,7 +58,7 @@
 			<h3>댓글 수 : ${question.countOfComment}</h3>
 			<c:forEach items="${answers}" var="answer">
 				<div class="comment">
-				<input type="hidden" name="answerId"
+					<input type="hidden" name="answerId"
 					value="${answer.answerId}">
 					<div class="comment-metadata">
 						<span class="comment-author">${answer.writer}</span> <span
@@ -68,7 +68,7 @@
 						<div class="about">내용 :</div>
 						${answer.contents}
 					</div>
-					<div class="comment-delete" "an">
+					<div class="comment-delete">
 						<a href="#">삭제</a>
 					</div>
 				</div>

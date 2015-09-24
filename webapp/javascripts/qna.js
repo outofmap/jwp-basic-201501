@@ -23,23 +23,26 @@ function writeAnswers(e) {
 	 request.send(params);
 }
 
-// $(".comment-delete").click(funtion(){
-// 	var answerId = $(this).attr("value");
-// 	var data = {
-// 	'answerId' : answerId
-// 	};
-// 	console.log(data);
 
-// 	$.ajax({
-//   		type: "POST",
-//   		url: "/delete.next",
-// 		data: data,
-// 		 success: function(data) {
-// 		 	console.log("success");
-// 		 },
-// 		 error : function(xhr, status, error) {
-// 		 	console.log(status);
-// 		 }
+$(".comment-delete").click(function() {
 	
-// 	});
-// });
+	var answerId = $(this).parent().attr("value");
+	var data = {
+	"answerId" : answerId
+	};
+
+	console.log(data);
+
+	$.ajax({
+  		type: "POST",
+  		url: "/delete.next",
+		data: data,
+		 success: function(data) {
+		 	console.log("success");
+		 },
+		 error : function(xhr, status, error) {
+		 	console.log(status);
+		 }
+	
+	});
+});
