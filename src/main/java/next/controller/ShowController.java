@@ -20,18 +20,18 @@ import core.utils.ServletRequestUtils;
 public class ShowController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
 	
-	private QuestionDao questionDao = new QuestionDao();
-	private AnswerDao answerDao = new AnswerDao();
+	private QuestionDao questionDao = QuestionDao.getInstance();
+	private AnswerDao answerdao = AnswerDao.getInstance();
 	private Question question;
-	private List<Answer> answers;
 	
 	@Override
 	public ModelAndView execute(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
+		List<Answer> answers;
 		long questionId = ServletRequestUtils.getRequiredLongParameter(request, "questionId");
 		logger.debug("questionId : {}", questionId);
 		question = questionDao.findById(questionId);
-		answers = answerDao.findAllByQuestionId(questionId);
+		answers = answerdao.findAllByQuestionId(questionId);
 		ModelAndView mav = jstlView("show.jsp");
 		mav.addObject("question", question);
 		mav.addObject("answers", answers);

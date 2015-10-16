@@ -14,7 +14,7 @@ import next.model.Answer;
 
 public class DeleteCommentController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
-	private AnswerDao answerdao = new AnswerDao();
+	private AnswerDao answerdao = AnswerDao.getInstance();
 	
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

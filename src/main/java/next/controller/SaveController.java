@@ -15,7 +15,7 @@ import next.model.Question;
 public class SaveController extends AbstractController{
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
 	
-	private QuestionDao questionDao = new QuestionDao();
+	private QuestionDao questionDao = QuestionDao.getInstance();
 	private Question question;
 	
 	@Override

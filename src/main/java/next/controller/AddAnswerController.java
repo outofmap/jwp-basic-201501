@@ -17,8 +17,8 @@ public class AddAnswerController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
 	
 	private Answer answer;
-	private AnswerDao answerdao = new AnswerDao();
-	private QuestionDao questiondao = new QuestionDao();
+	private AnswerDao answerdao = AnswerDao.getInstance();
+	private QuestionDao questiondao = QuestionDao.getInstance();
 	
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {

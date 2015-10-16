@@ -5,6 +5,9 @@
 4. 컨테이너가 init() 메소드를 호출해서 초기합니다. 이 때, 원하는대로 init()메소드를 재정의해서 초기화 코드에 데이터베이스 접속, 다른 객체에 서블릿을 등록하는 것과 같은 설정을 초기화 할 수 있습니다. 따로 재정의 하지 않으면, GenericServlet()의 init()이 실행됩니다. 
 * 이후에 클라이언트 요청이 들어오면 컨테이너는 다시 초기화를 해서 서블릿 인스턴스를 새로 만들지 않습니다. 인스턴스는 한번만 생성되고, 다수의 스레드를 실행해서 요청을 처리합닏. 요청 당 하나씩의 스레드가 담당해서 처리합니다. 
 
+- context loder listener에는 서비스에서 전역적으로 관리하는 정보하는 
+
+- servletcontext > session > request scope > page scope   
 
 #### 2. Tomcat 서버를 시작한 후 http://localhost:8080으로 접근시 호출 순서 및 흐름을 설명하라.
 * client : http://localhost:8080은
@@ -33,20 +36,26 @@ controller를 Listcontroller 객체가 생성해 초기화한다.
 * client : 
 서버한테 index.jsp를 받아서 브라우저에 보여준다.
 
-###Questions
+### Questions
 - 왜 dispatcher에 먼저 도착할까? 
+mapping이 되어있음. 
+
 - View class에서 render메소드는 어떻게 페이지를 보여주는걸까? 
-- list.next가 주소인데 list.jsp를 주소로 바로 쓰지 않는 이유는 뭘까? 
+servlet에서 jasonView 나 jstlView로 정해놓았으니 getView()메소드로 가져와서 보여주면 된다. 
+
+- list.next가 주소인데 list.jsp를 주소로 바로 쓰지 않는 이유는 뭘까?
+ front controller로 바로 보내고 어차피 요청이 오면 자원을 바로 보여주는 것이아니라 servlet에서 많은 일이 일어나고 최종적으로 자원을 보여준다.  
+
 - 요청한 자원을 client에 보내기까지 ModelAndView를 만들고 다시 View를 가져오는 과정이 길게 느껴지는데 이렇게 하는 이유가 무엇일까?
 
 #### 8. ListController와 ShowController가 멀티 쓰레드 상황에서 문제가 발생하는 이유에 대해 설명하라.
 - 추측 : Listcontroller와 showcontroller가 공유하는 부분에서 문제가 발생할 수 있다.(?)
+
 --------------------------------
-## 과제 수행 중 질문. 느낀점    
+## 과제 수행 중 질문. 느낀점.    
 ### dispatcherServlet 은 뭔가요?
 
 [dispatcherServlet](http://egloos.zum.com/springmvc/v/504151)        
-
 - static 성격의 외부 자원 ? ( 무슨 말인지 모르겠다.)
 - @MVC 는 어떤 것의 표기인가?
 - 담당하는 역할은 F3덕분에 많이 알게 되었다. 
@@ -54,7 +63,7 @@ controller를 Listcontroller 객체가 생성해 초기화한다.
 * 추측1 : 스프링에서 사용하는 전략의 일까?(MVC를 쉽게 구현하도록 도와주는 역할?)
 이 프로젝트에서 spring이라는 단어도 찾아볼 수 없으므로 dispatcher는 스프링에서 사용하는 서블릿이 아니다. 그렇지만 MVC 구현하도록 도와주는 역할을 하고 있다는 것은 느낄 수 있었다. 
 [프론트 컨트롤러?](http://kimddochi.tistory.com/85)
-'프론트 컨트롤러(=Front Controller)이다. 자바 서버의 Servlet 컨테이너에서 HTTP 프로토콜을 통해 들어오는 모든 요청을 프리젠테이션 계층의 제일앞에 둬서 중앙집중식으로 처리할 수 있는 컨트롤러이다.'
+'프론트 컨트롤러(=Front Controller)이다. 자바 서버의 Servlet 컨테이너에서 HTTP 프로토콜을 통해 들어오는 모든 요청을 프리젠테이션 계층의 제일 앞에 둬서 중앙집중식으로 처리할 수 있는 컨트롤러이다.'
 이 말은 이해가 된다.
 'DispatcherServlet은 서블릿 컨테이너가 생성하고 관리하는 오브젝트이다.
 즉, 스프링이 관여하는 오브젝트가 아니므로 직접 DI를 해줄 방법이 없다. 대신 web.xml에서 설정한 웹어플리케이션 컨텍스를 참고하여 필요한 전략을 DI하여 사용할 수 있다.'
@@ -70,7 +79,7 @@ jstl 반복문 함수에서는 items 는 서블릿에서 만들어둔 객체와 
 ```var params = "questionId=" + answerForm[0].value + "&writer=" + answerForm[1].value + "&contents=" + answerForm[2].value;```
 params가 하나의 긴 string이라고 생각해서 따로 parse해야 하는지, 고민하다가 getparameter 메소드를 쓰니, 원하는 속성값들을 가져올 수 있었다. 
 getparameter메소드를 봐도 string을 자르는 코드는 없었는데 어떻게 가능한 것인지 궁금하다. 
-
+tomcat을 만드는 곳에서 interface의 메소드를 구현해서 알아서 parsing해주고 있다.
 
 #### 7. jsonView 클래스에서 render()메소드의 mapper.writeValueAsString(model)가 어떻게 일하는 것인지 모르겠다. 
 
@@ -78,6 +87,6 @@ getparameter메소드를 봐도 string을 자르는 코드는 없었는데 어�
 
 #### 10. 서블릿마다 QuestionDao와 AnswerDao를 생성하면 성능면에서 어떻게 문제가 되는지 궁금하다.
 
-
-
-
+가비지콜렉터에서 메모리에서 제거하는 작업또한 오래걸린다. 
+그래서 상태값을 가지지않고 메소드만 갖고있는 클래스는 singletone 패턴을 적용해서 한번만 생성하는 것이 좋다. 
+메모리와 성능을 모두 고려한 작업니다. 
