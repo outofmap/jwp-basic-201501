@@ -21,15 +21,15 @@ public class AnswerDaoTest {
 		populator.addScript(new ClassPathResource("jwp.sql"));
 		DatabasePopulatorUtils.execute(populator, ConnectionManager.getDataSource());
 	}
-
-	@Test
-	public void crud() throws Exception {
-		long questionId = 1L;
-		Answer expected = new Answer("javajigi", "answer contents", questionId);
-		AnswerDao dut = AnswerDao.getInstance();
-		dut.insert(expected);
-		
-		List<Answer> answers = dut.findAllByQuestionId(questionId);
-		assertTrue(answers.size() > 0);
-	}
+//
+//	@Test
+//	public void crud() throws Exception {
+//		long questionId = 1L;
+//		Answer expected = new Answer("javajigi", "answer contents", questionId);
+//		AnswerDao dut = AnswerDao.getInstance();
+//		dut.insert(expected);
+//		
+//		List<Answer> answers = dut.findAllByQuestionId(questionId);
+//		assertTrue(answers.size() > 0);
+//	}
 }

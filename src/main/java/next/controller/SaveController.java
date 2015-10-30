@@ -14,9 +14,12 @@ import next.model.Question;
 
 public class SaveController extends AbstractController{
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
-	
-	private QuestionDao questionDao = QuestionDao.getInstance();
 	private Question question;
+	private QuestionDao questionDao;
+	
+	public SaveController(QuestionDao questionDao) {
+		this.questionDao = questionDao;
+	}
 	
 	@Override
 	public ModelAndView execute(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -29,5 +32,4 @@ public class SaveController extends AbstractController{
 		ModelAndView mav = jstlView("redirect:list.next");
 		return mav;
 	}
-
 }

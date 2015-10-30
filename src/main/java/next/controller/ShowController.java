@@ -20,9 +20,15 @@ import core.utils.ServletRequestUtils;
 public class ShowController extends AbstractController {
 	private static final Logger logger = LoggerFactory.getLogger(ShowController.class);
 	
-	private QuestionDao questionDao = QuestionDao.getInstance();
-	private AnswerDao answerdao = AnswerDao.getInstance();
+	private QuestionDao questionDao;
+	private AnswerDao answerdao;
 	private Question question;
+	
+	public ShowController(QuestionDao questiondao, AnswerDao answerdao){
+		super();
+		this.questionDao = questiondao;
+		this.answerdao = answerdao;
+	}
 	
 	@Override
 	public ModelAndView execute(HttpServletRequest request,

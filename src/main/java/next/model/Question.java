@@ -1,6 +1,7 @@
 package next.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Question {
 	private long questionId;
@@ -15,6 +16,16 @@ public class Question {
 	
 	private int countOfComment;
 	
+	private List<Answer> answers;
+	
+	public List<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(List<Answer> answers) {
+		this.answers = answers;
+	}
+
 	public Question(String writer, String title, String contents) {
 		this(0, writer, title, contents, new Date(), 0);
 	}	
@@ -55,6 +66,20 @@ public class Question {
 
 	public int getCountOfComment() {
 		return countOfComment;
+	}
+	
+	public boolean canDelete(){
+		if(answers == null || answers.isEmpty()){
+			return true;
+		}
+		
+		for (Answer answer : answers) {
+			String writer = this.writer;
+			if (!writer.equals(answer.getWriter())) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override

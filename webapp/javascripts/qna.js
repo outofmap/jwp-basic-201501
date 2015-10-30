@@ -23,26 +23,26 @@ function writeAnswers(e) {
 	 request.send(params);
 }
 
-
-$(".comment-delete").click(function() {
+var deleteList = document.querySelectorAll('.comment-delete');
+for ( var i=0 ; i < deleteList.length ; i++) {
+	deleteList[i].addEventListener('click', deleteAnswers, false);
+}
+function deleteAnswers(e) {
+	 e.preventDefault();
+	 
+	 var answerId = e.currentTarget.getAttribute('answerId');
+	 var url = "/deleteComment.next";
+	 var params = "answerId=" + answerId;
 	
-	var answerId = $(this).parent().attr("value");
-	var data = {
-	"answerId" : answerId
-	};
-
-	console.log(data);
-
-	$.ajax({
-  		type: "POST",
-  		url: "/delete.next",
-		data: data,
-		 success: function(data) {
-		 	console.log("success");
-		 },
-		 error : function(xhr, status, error) {
-		 	console.log(status);
+	 var request = new XMLHttpRequest();
+	 request.open("POST", url, true);
+	 request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+	 
+	 request.onreadystatechange = function() {
+		 if(request.readyState == 4 && request.status == 200) {
+			 location.reload(true);
 		 }
-	
-	});
-});
+	 }
+	 request.send(params);
+}
+
